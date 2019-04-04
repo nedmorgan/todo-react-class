@@ -4,18 +4,11 @@ export default class ToDo extends Component {
   render() {
     return (
       <div>
-        {
-          this.props.toDoList.length >= 1 ?
-            this.props.toDoList.map(todo => {
-              return (
-                <div>
-                  <p>{todo}</p>
-                  <button>Delete</button>
-                </div>
-              )
-            }) : null
-        }
-      </div>
+        <div key={this.props.i} index={this.props.i}>
+          <p>{this.props.title}</p>
+          <button onClick={(e, index) => this.props.handleDelete(e, this.props.i)}>Delete</button>
+        </div>
+      </div >
     )
   }
 }

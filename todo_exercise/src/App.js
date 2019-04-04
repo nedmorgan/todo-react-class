@@ -23,6 +23,13 @@ class App extends Component {
     this.setState({ toDoList, newToDo: {} })
   }
 
+  handleDelete = (e, index) => {
+    e.preventDefault()
+    let toDoList = [...this.state.toDoList]
+    toDoList.splice(index, 1)
+    this.setState({ toDoList })
+  }
+
   handleSignUp = (e) => {
     e.preventDefault()
     this.addToDo()
@@ -41,8 +48,18 @@ class App extends Component {
             value={this.state.newToDo.content} />
           <button>Submit</button>
         </form>
-        <ToDo
-          toDoList={this.state.toDoList} />
+        {
+          this.state.toDoList.map((todo, i) => {
+            return (
+              <ToDo
+                key={i}
+                index={i}
+                title={todo}
+                toDoList={this.state.toDoList}
+                handleDelete={this.handleDelete} />
+            )
+          })
+        }
       </div>
     );
   }
