@@ -4,7 +4,7 @@ import ToDo from './components/ToDo'
 
 class App extends Component {
   state = {
-    todoList: [],
+    toDoList: [],
     newToDo: {
       content: ''
     }
@@ -17,14 +17,22 @@ class App extends Component {
   }
 
   addToDo = () => {
+    const toDoList = [...this.state.toDoList]
+    let content = this.state.newToDo.content
+    toDoList.push(content)
+    this.setState({ toDoList, newToDo: {} })
+  }
 
+  handleSignUp = (e) => {
+    e.preventDefault()
+    this.addToDo()
   }
 
   render() {
     return (
       <div className="App">
         <h1>To-Do List</h1>
-        <form action="">
+        <form onSubmit={this.handleSignUp}>
           <label>Add New To-Do</label>
           <input
             type="text"
@@ -33,7 +41,8 @@ class App extends Component {
             value={this.state.newToDo.content} />
           <button>Submit</button>
         </form>
-        <ToDo newToDo={this.state.newToDo} />
+        <ToDo
+          toDoList={this.state.toDoList} />
       </div>
     );
   }
